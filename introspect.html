@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Code Lauren introspection prototype</title>
+    <link type="text/css" rel="stylesheet" href="./introspect.css" />
+  </head>
+
+  <body>
+    <h1>Code Lauren introspection prototype</h1>
+    <pre id="code">
+<span id="a"><span id="b">black-circle</span><span id="c">: </span><span id="d">circle(<span id="e">300</span> <span id="f">300</span> <span id="g">100</span>)</span></span>
+<span id="h">draw(<span id="i">black-circle</span>)</span>
+    </pre>
+    <div id="explanation">woo</div>
+  </body>
+
+  <script src="./node_modules/jquery/dist/jquery.js"></script>
+  <script src="./introspect.js"></script>
+ </html>
+
+<!-- ball<span id="a">: </span>circle(350 350 20) -->
+
+<!-- set(ball \"x-speed\" 0) -->
+<!-- set(ball \"y-speed\" 0) -->
+
+<!-- gravity: -0.5 -->
+
+<!-- forever { -->
+<!--   bat: rectangle(mouse-x mouse-y 100 10) -->
+
+<!--   if are-overlapping(bat ball) { -->
+<!--     bat-ball-difference: subtract(get(ball \"x\") get(bat \"x\")) -->
+<!--     set(ball \"x-speed\" divide(bat-ball-difference 10)) -->
+<!--     set(ball \"y-speed\" opposite(get(ball \"y-speed\"))) -->
+<!--   } else { -->
+<!--     set(ball \"y-speed\" add(gravity get(ball \"y-speed\"))) -->
+<!--   } -->
+
+<!--   set(ball \"x\" add(get(ball \"x\") get(ball \"x-speed\"))) -->
+<!--   set(ball \"y\" add(get(ball \"y\") get(ball \"y-speed\"))) -->
+
+<!--   clear-screen() -->
+<!--   draw(ball) -->
+<!--   draw(bat) -->
+<!-- } -->
