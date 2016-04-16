@@ -1,18 +1,18 @@
-.annotation-extremities {
-  text-decoration: underline;
-}
-
-.annotation-hot-area {
-  background-color: #ddd;
-};
-
 #explanation {
-  border: 1px solid black;
+  border: 1px solid #bbb;
   padding: 5px;
   width: 300px;
   height: 200px;
 }
 
-.explanation-on {
+.annotation-extremities {
+  background-color: #ddd;
+}
+
+.annotation-hot-area {
+  background-color: #ccc;
+}
+
+.explanation-showing {
   background-color: #ddd;
 }
