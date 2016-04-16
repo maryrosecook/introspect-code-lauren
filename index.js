@@ -47,9 +47,10 @@ function setupHovering() {
 
   Object.keys(annotations).forEach(function(key) {
     $("#" + key).mousemove(function(e) {
-      if (state.get("explainingCode") === true)
-      highlight(key);
-      e.stopPropagation();
+      if (state.get("explainingCode") === true) {
+        highlight(key);
+        e.stopPropagation();
+      }
     });
   });
 };
