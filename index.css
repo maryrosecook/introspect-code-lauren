@@ -13,29 +13,29 @@
 }
 
 .annotation-extremities {
-  background-color: #ddd;
+  background-color: #eee;
 }
 
 .annotation-hot-area {
-  background-color: #ccc;
+  background-color: #ddd;
 }
 
 #explanation.on {
   background-color: #ddd;
 }
 
-#explain-syntax {
+#explain-code {
   outline: none;
   background-color: white;
   border: 1px solid black;
   margin: 1px;
 }
 
-#explain-syntax:hover {
+#explain-code:hover {
   cursor: pointer;
 }
 
-#explain-syntax.on {
+#explain-code.on {
   border: 2px solid black;
   margin: 0;
 }

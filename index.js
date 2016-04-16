@@ -36,6 +36,8 @@ var annotations = {
   e: { text: "x coordinate of the circle", highlight: "e" },
   f: { text: "y coordinate of the circle", highlight: "f" },
   g: { text: "Radius of the circle", highlight: "g" },
+  h: { text: "Draw a thing", highlight: "h" },
+  i: { text: "The thing to draw", highlight: "i" },
 };
 
 function setupHovering() {
@@ -45,7 +47,7 @@ function setupHovering() {
 
   Object.keys(annotations).forEach(function(key) {
     $("#" + key).mousemove(function(e) {
-      if (state.get("explainingSyntax") === true)
+      if (state.get("explainingCode") === true)
       highlight(key);
       e.stopPropagation();
     });
@@ -79,24 +81,24 @@ function State(initialState) {
 };
 
 function updateButtonView(state) {
-  if (state.get("explainingSyntax") === true) {
-    $("#explain-syntax").addClass("on");
+  if (state.get("explainingCode") === true) {
+    $("#explain-code").addClass("on");
   } else {
-    $("#explain-syntax").removeClass("on");
+    $("#explain-code").removeClass("on");
   }
 };
 
-function clickExplainSyntax() {
-  if (state.get("explainingSyntax") === true) {
-    state.set("explainingSyntax", false);
+function clickExplainCode() {
+  if (state.get("explainingCode") === true) {
+    state.set("explainingCode", false);
   } else {
-    state.set("explainingSyntax", true);
+    state.set("explainingCode", true);
   }
 };
 
 (function setupButtonClicking() {
-  $("#explain-syntax").click(clickExplainSyntax);
+  $("#explain-code").click(clickExplainCode);
 })();
 
-var state = new State({ explainingSyntax: false });
+var state = new State({ explainingCode: false });
 setupHovering();
