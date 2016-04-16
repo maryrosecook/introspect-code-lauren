@@ -4,11 +4,13 @@
   "description": "",
   "main": "introspect.js",
   "dependencies": {
-    "jquery": "^2.2.3"
+    "jquery": "^2.2.3",
+    "live-server": "^0.9.2"
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "live-server . --port=4000 --no-browser --host=localhost"
   },
   "repository": {
     "type": "git",

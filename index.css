@@ -1,11 +1,14 @@
 #code {
   outline: none;
+  border: 1px solid black;
+  padding: 5px;
+  width: 400px;
 }
 
 #explanation {
-  border: 1px solid #bbb;
+  border: 1px solid #ddd;
   padding: 5px;
-  width: 300px;
+  width: 400px;
   height: 200px;
 }
 
@@ -17,6 +20,22 @@
   background-color: #ccc;
 }
 
-.explanation-showing {
+#explanation.on {
   background-color: #ddd;
+}
+
+#explain-syntax {
+  outline: none;
+  background-color: white;
+  border: 1px solid black;
+  margin: 1px;
+}
+
+#explain-syntax:hover {
+  cursor: pointer;
+}
+
+#explain-syntax.on {
+  border: 2px solid black;
+  margin: 0;
 }

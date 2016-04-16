@@ -10,12 +10,6 @@ function highlight(key) {
   }
 };
 
-function unhighlight(key) {
-  $('html,body').css('cursor', 'text');
-  var annotation = annotations[key];
-
-};
-
 function clearHighlight() {
   $("#code span").removeClass("annotation-extremities");
   $("#code span").removeClass("annotation-hot-area");
@@ -28,12 +22,12 @@ function clear() {
 
 function setExplanation(explanation) {
   $("#explanation").text(explanation);
-  $("#explanation").addClass("explanation-showing");
+  $("#explanation").addClass("on");
 };
 
 function clearExplanation() {
   $("#explanation").text("");
-  $("#explanation").removeClass("explanation-showing");
+  $("#explanation").removeClass("on");
 };
 
 var annotations = {
@@ -44,15 +38,65 @@ var annotations = {
   g: { text: "Radius of the circle", highlight: "g" },
 };
 
-(function setupHovering() {
+function setupHovering() {
+  $("body").mousemove(function(e) {
+    clear();
+  });
+
   Object.keys(annotations).forEach(function(key) {
     $("#" + key).mousemove(function(e) {
+      if (state.get("explainingSyntax") === true)
       highlight(key);
       e.stopPropagation();
     });
-
-    $("#code").mousemove(function(e) {
-      clear();
-    });
   });
+};
+
+function teardownHovering() {
+  $("#code").unbind("mousemove");
+
+  Object.keys(annotations).forEach(function(key) {
+    $("#" + key).unbind("mousemove");
+  });
+};
+
+function State(initialState) {
+  var state = {};
+
+  this.set = function(key, value) {
+    state[key] = value;
+    updateButtonView(this);
+  };
+
+  this.get = function(key) {
+    return state[key];
+  };
+
+  var self = this;
+  Object.keys(initialState).forEach(function(key) {
+    self.set(key, initialState[key]);
+  });
+};
+
+function updateButtonView(state) {
+  if (state.get("explainingSyntax") === true) {
+    $("#explain-syntax").addClass("on");
+  } else {
+    $("#explain-syntax").removeClass("on");
+  }
+};
+
+function clickExplainSyntax() {
+  if (state.get("explainingSyntax") === true) {
+    state.set("explainingSyntax", false);
+  } else {
+    state.set("explainingSyntax", true);
+  }
+};
+
+(function setupButtonClicking() {
+  $("#explain-syntax").click(clickExplainSyntax);
 })();
+
+var state = new State({ explainingSyntax: false });
+setupHovering();
