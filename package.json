@@ -1,0 +1,23 @@
+{
+  "name": "introspect-code-lauren",
+  "version": "0.1.0",
+  "description": "",
+  "main": "introspect.js",
+  "dependencies": {
+    "jquery": "^2.2.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maryrosecook/introspect-code-lauren.git"
+  },
+  "author": "Mary Rose Cook",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/maryrosecook/introspect-code-lauren/issues"
+  },
+  "homepage": "https://github.com/maryrosecook/introspect-code-lauren#readme"
+}
