@@ -1,3 +1,19 @@
+var annotations = {
+  b: { text: ["The name given to the thing on the right of the ':'"] },
+  c: { text: ["Creates a circle and names it 'black-circle' so it can be referred to later. "],
+       highlight: "a" },
+  d: { text: ["Creates a circle"] },
+  e: { text: ["A number",
+              "x coordinate of a circle"] },
+  f: { text: ["A number",
+              "y coordinate of a circle"] },
+  g: { text: ["A number",
+              "Radius of a circle"] },
+  h: { text: ["Draw a thing"] },
+  i: { text: ["A thing called 'black-circle'",
+              "A thing to draw"] },
+};
+
 // model
 
 function State(initialState) {
@@ -16,17 +32,6 @@ function State(initialState) {
   Object.keys(initialState).forEach(function(key) {
     self.set(key, initialState[key]);
   });
-};
-
-var annotations = {
-  b: { text: "The name given to the thing on the right of the ':'" },
-  c: { text: "Creates a circle and names it 'black-circle'", highlight: "a" },
-  d: { text: "Creates a circle" },
-  e: { text: "x coordinate of the circle" },
-  f: { text: "y coordinate of the circle" },
-  g: { text: "Radius of the circle" },
-  h: { text: "Draw a thing" },
-  i: { text: "The thing to draw" },
 };
 
 // view
@@ -66,12 +71,16 @@ function clearCodeHighlight() {
   $("#code span").removeClass("annotation-hot-area");
 };
 
+function explanationToHtml(text) {
+  return text.map(function(item) { return "* " + item; }).join("<br />");
+};
+
 function updateExplanationView(state) {
   var hoveringOver = state.get("hoveringOver");
   var isExplaining = state.get("isExplaining");
 
   if (isExplaining && hoveringOver !== undefined) {
-    $("#explanation").text(annotations[hoveringOver].text);
+    $("#explanation").html(explanationToHtml(annotations[hoveringOver].text));
   } else if (isExplaining) {
     $("#explanation").text("Hover your mouse over something to see an explanation");
   } else {
@@ -79,15 +88,7 @@ function updateExplanationView(state) {
   }
 };
 
-// event handler functions
-
-function clickExplain() {
-  if (state.get("isExplaining") === true) {
-    state.set("isExplaining", false);
-  } else {
-    state.set("isExplaining", true);
-  }
-};
+// event handler setup functions
 
 function setupHovering() {
   $("body").mousemove(function(e) {
@@ -102,8 +103,14 @@ function setupHovering() {
   });
 };
 
+function setExplaining() {
+  var newIsExplainingState = state.get("isExplaining") === true ? false : true;
+  state.set("isExplaining", newIsExplainingState);
+  $("#code").attr("contenteditable", !newIsExplainingState);
+};
+
 function setupButtonClicking() {
-  $("#explain").click(clickExplain);
+  $("#explain").click(setExplaining);
 };
 
 // setup app
