@@ -19,13 +19,14 @@ function State(initialState) {
 };
 
 var annotations = {
+  b: { text: "The name given to the thing on the right of the ':'" },
   c: { text: "Creates a circle and names it 'black-circle'", highlight: "a" },
-  d: { text: "Creates a circle", highlight: "d" },
-  e: { text: "x coordinate of the circle", highlight: "e" },
-  f: { text: "y coordinate of the circle", highlight: "f" },
-  g: { text: "Radius of the circle", highlight: "g" },
-  h: { text: "Draw a thing", highlight: "h" },
-  i: { text: "The thing to draw", highlight: "i" },
+  d: { text: "Creates a circle" },
+  e: { text: "x coordinate of the circle" },
+  f: { text: "y coordinate of the circle" },
+  g: { text: "Radius of the circle" },
+  h: { text: "Draw a thing" },
+  i: { text: "The thing to draw" },
 };
 
 // view
@@ -52,8 +53,9 @@ function updateCodeView(state) {
   if (isExplaining && hoveringOver !== undefined) {
     var annotation = annotations[hoveringOver];
     if (annotation !== undefined) {
+      var highlight = annotation.highlight || hoveringOver;
       $('html,body').css('cursor', 'default');
-      $("#" + annotation.highlight).addClass("annotation-extremities");
+      $("#" + highlight).addClass("annotation-extremities");
       $("#" + hoveringOver).addClass("annotation-hot-area");
     }
   }
