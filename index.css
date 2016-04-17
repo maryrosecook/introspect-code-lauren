@@ -20,22 +20,18 @@
   background-color: #ddd;
 }
 
-#explanation.on {
-  background-color: #ddd;
-}
-
-#explain-code {
+#explain {
   outline: none;
   background-color: white;
   border: 1px solid black;
   margin: 1px;
 }
 
-#explain-code:hover {
+#explain:hover {
   cursor: pointer;
 }
 
-#explain-code.on {
+#explain.on {
   border: 2px solid black;
   margin: 0;
 }
