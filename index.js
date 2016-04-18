@@ -67,8 +67,9 @@ function updateCodeView(state) {
 };
 
 function clearCodeHighlight() {
-  $("#code span").removeClass("annotation-extremities");
-  $("#code span").removeClass("annotation-hot-area");
+  $("#code span")
+    .removeClass("annotation-extremities")
+    .removeClass("annotation-hot-area");
 };
 
 function explanationToHtml(text) {
