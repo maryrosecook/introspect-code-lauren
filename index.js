@@ -1,8 +1,7 @@
 var annotations = {
-  b: { text: ["The name given to the thing on the right of the ':'"] },
-  c: { text: ["Creates a circle and names it 'black-circle' so it can be referred to later. "],
-       highlight: "a" },
-  d: { text: ["Creates a circle"] },
+  a: { text: ["Creates a circle and names it 'black-circle' so it can be referred to later. "] },
+  c: { text: ["Creates a circle"] },
+  d: { text: ["An action that creates a circle when run"] },
   e: { text: ["A number",
               "x coordinate of a circle"] },
   f: { text: ["A number",
@@ -13,6 +12,10 @@ var annotations = {
   i: { text: ["A thing called 'black-circle'",
               "A thing to draw"] },
 };
+
+var stepToAnnotation = [
+  "e", "f", "g", "d", "c", "a", "i", "h"
+];
 
 // model
 
@@ -37,39 +40,71 @@ function State(initialState) {
 // view
 
 function updateView(state) {
-  updateButtonView(state)
   updateCodeView(state);
+  updateButtonView(state);
   updateExplanationView(state);
 };
 
-function updateButtonView(state) {
-  if (state.get("isExplaining") === true) {
-    $("#explain").addClass("on");
-  } else {
-    $("#explain").removeClass("on");
-  }
-};
-
 function updateCodeView(state) {
-  clearCodeHighlight();
+  clearCodeAnnotation();
 
-  var hoveringOver = state.get("hoveringOver");
-  var isExplaining = state.get("isExplaining");
-  if (isExplaining && hoveringOver !== undefined) {
-    var annotation = annotations[hoveringOver];
-    if (annotation !== undefined) {
-      var highlight = annotation.highlight || hoveringOver;
-      $('html,body').css('cursor', 'default');
-      $("#" + highlight).addClass("annotation-extremities");
-      $("#" + hoveringOver).addClass("annotation-hot-area");
+  if (state.get("paused") === true) {
+    var id = annotationId(stepToAnnotation, state.get("step"));
+    if (id !== undefined) {
+      $("#" + id).addClass("annotation");
     }
   }
 };
 
-function clearCodeHighlight() {
-  $("#code span")
-    .removeClass("annotation-extremities")
-    .removeClass("annotation-hot-area");
+function updateButtonView(state) {
+  updateRewindButton(state);
+  updateStepBackwardsButton(state);
+  updateStepForwardsButton(state);
+  updatePlayPauseButton(state);
+};
+
+function updateRewindButton(state) {
+  if (state.get("step") === 0) {
+    $("#rewind-button").addClass("disabled");
+  } else {
+    $("#rewind-button").removeClass("disabled");
+  }
+};
+
+function updateStepBackwardsButton(state) {
+  if (state.get("step") === 0) {
+    $("#step-backwards-button").addClass("disabled");
+  } else {
+    $("#step-backwards-button").removeClass("disabled");
+  }
+};
+
+function updateStepForwardsButton(state) {
+  if (state.get("step") === stepToAnnotation.length - 1) {
+    $("#step-forwards-button").addClass("disabled");
+  } else {
+    $("#step-forwards-button").removeClass("disabled");
+  }
+};
+
+function updatePlayPauseButton(state) {
+  if (state.get("paused") === true) {
+    $("#play-pause-button")
+      .removeClass("pause-button")
+      .addClass("play-button");
+  } else if (state.get("paused") === false) {
+    $("#play-pause-button")
+      .removeClass("play-button")
+      .addClass("pause-button");
+  }
+};
+
+function annotationId(stepToAnnotation, step) {
+  return stepToAnnotation[step];
+};
+
+function clearCodeAnnotation() {
+  $("#code span").removeClass("annotation")
 };
 
 function explanationToHtml(text) {
@@ -77,45 +112,41 @@ function explanationToHtml(text) {
 };
 
 function updateExplanationView(state) {
-  var hoveringOver = state.get("hoveringOver");
-  var isExplaining = state.get("isExplaining");
-
-  if (isExplaining && hoveringOver !== undefined) {
-    $("#explanation").html(explanationToHtml(annotations[hoveringOver].text));
-  } else if (isExplaining) {
-    $("#explanation").text("Hover your mouse over something to see an explanation");
-  } else {
-    $("#explanation").text("");
+  var id = annotationId(stepToAnnotation, state.get("step"));
+  if (id !== undefined) {
+    $("#explanation").html(explanationToHtml(annotations[id].text));
   }
 };
 
 // event handler setup functions
 
-function setupHovering() {
-  $("body").mousemove(function(e) {
-    state.set("hoveringOver", undefined);
-  });
-
-  Object.keys(annotations).forEach(function(key) {
-    $("#" + key).mousemove(function(e) {
-      state.set("hoveringOver", this.id);
-      e.stopPropagation();
-    });
-  });
+function setStep(state, newStep) {
+  if (newStep >= 0 && newStep < stepToAnnotation.length) {
+    state.set("step", newStep);
+  }
 };
 
-function setExplaining() {
-  var newIsExplainingState = state.get("isExplaining") === true ? false : true;
-  state.set("isExplaining", newIsExplainingState);
-  $("#code").attr("contenteditable", !newIsExplainingState);
-};
+function setupButtonClicking(state) {
+  $("#rewind-button").click(function() {
+    setStep(state, 0);
+  });
 
-function setupButtonClicking() {
-  $("#explain").click(setExplaining);
+  $("#step-backwards-button").click(function() {
+    state.set("paused", true);
+    setStep(state, state.get("step") - 1);
+  });
+
+  $("#step-forwards-button").click(function() {
+    state.set("paused", true);
+    setStep(state, state.get("step") + 1);
+  });
+
+  $("#play-pause-button").click(function() {
+    state.set("paused", !state.get("paused"));
+  });
 };
 
 // setup app
 
-var state = new State({ isExplaining: false, hoveringOver: undefined });
-setupHovering();
-setupButtonClicking();
+var state = new State({ paused: true, step: 0 });
+setupButtonClicking(state);

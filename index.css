@@ -12,11 +12,7 @@
   height: 200px;
 }
 
-.annotation-extremities {
-  background-color: #eee;
-}
-
-.annotation-hot-area {
+.annotation {
   background-color: #ddd;
 }
 
@@ -34,4 +30,123 @@
 #explain.on {
   border: 2px solid black;
   margin: 0;
+}
+
+.player-button {
+  cursor: pointer;
+  border: 0;
+  width: 30px;
+  height: 30px;
+  margin: 0 6px;
+  vertical-align: top;
+}
+
+.rewind-button {
+  background: url(../resources/images/rewind.png);
+  background-size: 36px 33px;
+  width: 36px;
+  height: 33px;
+}
+
+.rewind-button:hover {
+  background: url(../resources/images/rewind-hover.png);
+  background-size: 35.5px 33px;
+}
+
+.rewind-button.disabled, .rewind-button.disabled:active {
+  background: url(../resources/images/rewind-disabled.png);
+  background-size: 35.5px 33px;
+  width: 35.5px;
+  height: 33px;
+  cursor: default;
+}
+
+.rewind-button:active {
+  background: url(../resources/images/rewind-active.png);
+  background-size: 35.5px 33px;
+  width: 35.5px;
+  height: 33px;
+}
+
+.play-button {
+  background: url(../resources/images/play.png);
+  background-size: 16.5px 33px;
+  width: 16px;
+  margin: 0 10px 0 6px; /* push play right and pull stepforward left to make play look correct */
+  height: 33px;
+}
+
+.play-button:hover {
+  background: url(../resources/images/play-hover.png);
+  background-size: 16px 33px;
+}
+
+.pause-button {
+  background: url(../resources/images/pause.png);
+  background-size: 16px 33px;
+  width: 16px;
+  height: 33px;
+}
+
+.pause-button:hover {
+  background: url(../resources/images/pause-hover.png);
+  background-size: 16px 33px;
+}
+
+.step-forwards-button {
+  background: url(../resources/images/step-forwards.png);
+  background-size: 20px 33px;
+  width: 20px;
+  height: 33px;
+}
+
+.step-forwards-button:hover {
+  background: url(../resources/images/step-forwards-hover.png);
+  background-size: 20px 33px;
+}
+
+.step-forwards-button.disabled, .step-forwards-button.disabled:active {
+  background: url(../resources/images/step-forwards-disabled.png);
+  background-size: 20px 33px;
+  width: 20px;
+  height: 33px;
+  cursor: default;
+}
+
+.step-forwards-button:active {
+  background: url(../resources/images/step-forwards-active.png);
+  background-size: 20px 33px;
+  width: 20px;
+  height: 33px;
+}
+
+.step-backwards-button {
+  background: url(../resources/images/step-backwards.png);
+  background-size: 20px 33px;
+  width: 20px;
+  height: 33px;
+}
+
+.step-backwards-button:hover {
+  background: url(../resources/images/step-backwards-hover.png);
+  background-size: 20px 33px;
+}
+
+.step-backwards-button.disabled, .step-backwards-button.disabled:active {
+  background: url(../resources/images/step-backwards-disabled.png);
+  background-size: 20px 33px;
+  width: 20px;
+  height: 33px;
+  cursor: default;
+}
+
+.step-backwards-button:active {
+  background: url(../resources/images/step-backwards-active.png);
+  background-size: 20px 33px;
+  width: 20px;
+  height: 33px;
+}
+
+button:focus {
+  outline: 0; /* removes blue outline that appears on button click */
 }
