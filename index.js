@@ -1,20 +1,5 @@
-var annotations = {
-  a: { text: ["Creates a circle and names it 'black-circle' so it can be referred to later. "] },
-  c: { text: ["Creates a circle"] },
-  d: { text: ["An action that creates a circle when run"] },
-  e: { text: ["A number",
-              "x coordinate of a circle"] },
-  f: { text: ["A number",
-              "y coordinate of a circle"] },
-  g: { text: ["A number",
-              "Radius of a circle"] },
-  h: { text: ["Draw a thing"] },
-  i: { text: ["A thing called 'black-circle'",
-              "A thing to draw"] },
-};
-
 var stepToAnnotation = [
-  "e", "f", "g", "d", "c", "a", "i", "h"
+  "a"
 ];
 
 // model
@@ -107,14 +92,19 @@ function clearCodeAnnotation() {
   $("#code span").removeClass("annotation")
 };
 
-function explanationToHtml(text) {
-  return text.map(function(item) { return "* " + item; }).join("<br />");
+function explanationToHtml(id, cb) {
+  $.ajax({
+    url: '/explanations/' + id + ".html",
+    success: cb
+  });
 };
 
 function updateExplanationView(state) {
   var id = annotationId(stepToAnnotation, state.get("step"));
   if (id !== undefined) {
-    $("#explanation").html(explanationToHtml(annotations[id].text));
+    explanationToHtml(id, function(html) {
+      $("#explanation").html(html);
+    });
   }
 };
 
